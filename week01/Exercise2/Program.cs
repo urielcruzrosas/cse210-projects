@@ -1,3 +1,8 @@
+        /*
+ * Program: Grade Calculator
+ * Author: Uriel Cruz
+ */
+
 using System;
 using System.Runtime.CompilerServices;
 
@@ -6,10 +11,9 @@ class Program
     static void Main(string[] args)
     {
         string letter = "";
-        Console.Write("What is your subject score? ");
-        string userScoreInput = Console.ReadLine();
-        int grade = int.Parse(userScoreInput);
-
+        Console.Write("What is your grade percentage (only numbers)? ");
+        string userInput = Console.ReadLine();
+        int grade = int.Parse(userInput);
 
         if (grade >= 90)
         {
@@ -32,15 +36,15 @@ class Program
             letter = "F";
         }
 
-        // Adding + or -
+        // Extra Step 1: Create + or - letter grades
         string sign = "";
-        int last_digit = grade % 10;
+        int remainder = grade % 10;
 
-        if (last_digit >= 7)
+        if (remainder >= 7)
         {
             sign = "+";
         }
-        else if (last_digit < 3)
+        else if (remainder < 3)
         {
             sign = "-";
         }
@@ -49,27 +53,32 @@ class Program
             sign = "";
         }
 
-        // Handle the A+ grades
-        if (grade >= 93)
+        // Extra Step 2 and 3: Recognize A as just A= and F as non symbol
+        if (letter == "A" && sign == "+")
         {
             sign = "";
         }
 
-        // Handle the F+ and F- grades
         if (letter == "F")
         {
             sign = "";
         }
 
-        Console.WriteLine($"Your letter grade is: {letter}{sign}");
+        if (grade == 100)
+        {
+            sign = "";
+        }
 
+        Console.WriteLine($"Your grade is: {letter}{sign}");
+
+        // Core requirement 2:
         if (grade >= 70)
         {
-            Console.WriteLine("Congratulations! You passed the class!");
+            Console.WriteLine("You pass the course!");
         }
         else
         {
-            Console.WriteLine("Stay focused and you'll get it next time!");
+            Console.WriteLine("Try again to pass");
         }
     }
 }
