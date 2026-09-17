@@ -1,40 +1,44 @@
-using System;
+string playAgain;
 
-class Program
+do
 {
-    static void Main(string[] args)
+    Random userNumber = new Random();
+    int magicNumber = userNumber.Next(1, 101);
+
+    int guess;
+    int attempts = 0;
+
+    do
     {
-        Random randomGenerator = new Random();
-        int magicNumber = randomGenerator.Next(1, 101);
-
         Console.Write("What is your guess? ");
-        int guess = int.Parse(Console.ReadLine());
-        int guessCount = 1;
+        string userGuess = Console.ReadLine();
+        guess = int.Parse(userGuess);
 
-        while (guess != magicNumber)
+        ++attempts;
+
+        if (guess == magicNumber)
         {
-            if (guess < magicNumber)
-            {
-                Console.WriteLine("Higher");
-            }
-            else
-            {
-                Console.WriteLine("Lower");
-            }
-
-            Console.Write("What is your guess? ");
-            guess = int.Parse(Console.ReadLine());
-            guessCount++;
+            Console.WriteLine("You guess it!");
         }
 
-        Console.WriteLine("You guessed it!");
-        Console.WriteLine($"It took you {guessCount} guesses.");
-    }
-}
+        else if (guess < magicNumber)
+        {
+            Console.WriteLine("Higher");
+        }
+        else
+        {
+            Console.WriteLine("Lower");
+        }
+    } while (guess != magicNumber);
+
+    Console.WriteLine($"It took you {attempts} attempts");
+
+    Console.Write("Do you want to play again yes/no: ");
+    playAgain = Console.ReadLine();
+} while (playAgain == "yes");
 
 
-/*
-Extra Challenges
-1. Keep track of how many guesses the user has made and inform them of it at the end of the game.
-2. After the game is over, ask the user if they want to play again. Then, loop back and play the whole game again and continue this loop as long as they keep saying "yes".
-*/
+Console.WriteLine("Thanks for playing!");
+
+
+
