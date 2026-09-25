@@ -6,6 +6,15 @@ class Program
 {
     static void Main(string[] args)
     {
+        DisplayWelcome();
+        string userName = PromptUserName();
+        int userNumber = PromptUserNumber();
+
+        int squaredNumber = SquareNumber(userNumber);
+
+        DisplayResult(userName, squaredNumber);
+
+
         // DisplayWelcome - Displays the message, "Welcome to the Program!"
         static void DisplayWelcome ()
         {
@@ -15,7 +24,7 @@ class Program
         // PromptUserName - Asks for and returns the user's name (as a string)
         static string PromptUserName ()
         {
-            Console.Write("Type you name");
+            Console.Write("Type you name: ");
             string userInput = Console.ReadLine();
             return userInput;
         }
