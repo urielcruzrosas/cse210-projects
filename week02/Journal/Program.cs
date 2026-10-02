@@ -4,65 +4,49 @@ class Program
 {
     static void Main(string[] args)
     {
-        Journal journal = new Journal();
+        Journal theJournal = new Journal();
         PromptGenerator promptGenerator = new PromptGenerator();
 
-        bool keepRunning = true;
+        string choice = "";
 
-        Console.WriteLine("Welcome to the Journal Program!");
-
-        while (keepRunning)
+        while (choice != "5")
         {
             Console.WriteLine("Please select one of the following choices:");
-            Console.WriteLine("1. Write");
-            Console.WriteLine("2. Display");
-            Console.WriteLine("3. Load");
-            Console.WriteLine("4. Save");
+            Console.WriteLine("1. Write a new entry");
+            Console.WriteLine("2. Display the journal");
+            Console.WriteLine("3. Save the journal to a file");
+            Console.WriteLine("4. Load the journal from a file");
             Console.WriteLine("5. Quit");
             Console.Write("What would you like to do? ");
-            string choice = Console.ReadLine();
+
+            choice = Console.ReadLine();
 
             if (choice == "1")
             {
                 string prompt = promptGenerator.GetRandomPrompt();
-                Console.WriteLine($"Prompt: {prompt}");
-                Console.Write("> ");
-                string response = Console.ReadLine();
 
-                Console.Write("What is your current mood? ");
-                string mood = Console.ReadLine();
+                Console.WriteLine(prompt);
+                string answer = Console.ReadLine();
 
-                Entry newEntry = new Entry();
-                newEntry._date = DateTime.Now.ToShortDateString();
-                newEntry._promptText = prompt;
-                newEntry._entryText = response;
-                newEntry._mood = mood;
+                string date = DateTime.Now.ToShortDateString();
 
-                journal.AddEntry(newEntry);
+                Entry anEntry = new Entry();
+                anEntry._date = date;
+                anEntry._promptText = prompt;
+                anEntry._entryText = answer;
+
+                theJournal.AddEntry(anEntry);
             }
             else if (choice == "2")
             {
-                journal.DisplayAll();
+                theJournal.DisplayAll();
             }
             else if (choice == "3")
             {
-                Console.Write("What is the filename? ");
-                string fileName = Console.ReadLine();
-                journal.LoadFromFile(fileName);
-            }
-            else if (choice == "4")
-            {
-                Console.Write("What is the filename? ");
-                string fileName = Console.ReadLine();
-                journal.SaveToFile(fileName);
-            }
-            else if (choice == "5")
-            {
-                keepRunning = false;
-            }
-            else
-            {
-                Console.WriteLine("Invalid choice. Please try again.");
+                Console.WriteLine("Enter the filename: ");
+                string file = Console.ReadLine();
+
+                theJournal.SaveToFile(file);
             }
         }
     }
